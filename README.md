@@ -66,7 +66,7 @@ I put image datasets at `./traffic-signs-data/`. Datasets serves as three purpos
 
 Here is datasets basic descriptions.
 
-```python
+```sh
 Number of training examples = 34799
 Number of validating examples = 4410
 Number of testing examples = 12630
@@ -125,7 +125,7 @@ A bit tricky part is that I should pass different dropout rate for training from
 
 The final accuracy from model are following:
 
-```python
+```sh
 Training Accuracy = 0.985
 Validation Accuracy = 0.936
 Test Accuracy = 0.936
