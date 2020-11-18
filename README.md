@@ -2,7 +2,7 @@
 
 This is my third project of [Self-Driving Car Engineer nanodegree program](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013) in udacity.
 
-You can see the first project at [this link](https://github.com/Akitsuyoshi/CarND-LaneLines-P1), second one is [here](https://github.com/Akitsuyoshi/CarND-Advanced-Lane-Lines).
+You can see the first project at [this link](https://github.com/Akitsuyoshi/CarND-LaneLines-P1), the second one is [here](https://github.com/Akitsuyoshi/CarND-Advanced-Lane-Lines).
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ You can see the first project at [this link](https://github.com/Akitsuyoshi/CarN
 
 **The final exported HTML file can be found at [report.html](./report.html). Project code is [Traffic_Sign_Classifier.ipynb](./Traffic_Sign_Classifier.ipynb)**
 
-The goals / steps of this project are the following:
+The goals/steps of this project are the following:
 
 - Load the data set, using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset)
 - Explore, summarize and visualize the data set
@@ -52,7 +52,7 @@ The goals / steps of this project are the following:
 
 ### 0 Setting
 
-To set it up to run this script at first, I followd this [starter kit](https://github.com/udacity/CarND-Term1-Starter-Kit) with docker. If you use mac and docker was installed successfuly, you can run jupyter notebook on your local machine by the command below.
+To set it up to run this script at first, I followed this [starter kit](https://github.com/udacity/CarND-Term1-Starter-Kit) with docker. If you use mac and docker was installed successfully, you can run jupyter notebook on your local machine by the command below.
 
 ```sh
 docker run -it --rm --entrypoint "/run.sh" -p 8888:8888 -v `pwd`:/src udacity/carnd-term1-starter-kit
@@ -62,9 +62,9 @@ This repo doesn't contain datasets, I got them from Udacity lessons.
 
 ### 1 Load and Explore the data set
 
-I put image datasets at `./traffic-signs-data/`. Datasets serves as three purposes, for training, validating, and testing. Each data was named accordingly.
+I put image datasets at `./traffic-signs-data/`. Datasets serve as three purposes, training, validating, and testing. Each data was named accordingly.
 
-Here is datasets basic descriptions.
+Here are the datasets basic descriptions.
 
 ```sh
 Number of training examples = 34799
@@ -74,7 +74,7 @@ Image data shape = (32, 32, 3)
 Number of classes = 43
 ```
 
-And then I plot hitogram of the datasets so that I can see how many images each label(traffic signs) exits in that datas.
+And then I plot the hitogram of the datasets so that I can see how many images each label(traffic signs) exits.
 
 ![alt text][image1]
 
@@ -84,16 +84,16 @@ Each images look like this:
 
 ### 2 Preprocess the data set
 
-At first, I decided to covert image data from RGB to Gray scale because it reduces datasize. The RGB channels values are in the `[0, 255]` range. This range is not ideal for a neaural network, in general small input values are better. I rescale it to `[0, 1]` instead for that reason. Above that steps, I first trid Gaussian Blur in preproce step, but I realized that blur doesn't work well for later traing step so I commet it out for now.
+At first, I decided to convert image data from RGB to Gray scale because it reduces data size. The RGB channels values are in the `[0, 255]` range. This range is not ideal for a neural network, in general, small input values are better. I rescale it to `[0, 1]` instead for that reason. Above that steps, I first tried Gaussian Blur in the preprocess step, but I realized that blur doesn't work well for later training steps so I comment it out for now.
 
-I got normalized imagedataset, and then I made some additional fake data especially for the one that aren't good enough for training model. Some are 2000 pics but some are even less than 200, like 180 pics. To deal with that issue, I do image augumentation. If specific image does't exits over 1000 pics, I add three fake data in three ways, like random cropping, vertical flipping, and cutting out. I use [this repo](https://github.com/xkumiyu/numpy-data-augmentation) as reference for implementing each augumentation. A detail cutting out process is found at [this paper](https://arxiv.org/abs/1708.04552).
+I got a normalized image dataset, and then I made some additional fake data especially for the ones that aren't good enough fortraining model. Some are 2000 pics but some are even less than 200, like 180 pics. To deal with that issue, I do image augmentation. If a specific image doesn't exit over 1000 pics, I add three fake data in three ways, like random cropping, vertical flipping, and cutting out. I use [this repo](https://github.com/xkumiyu/numpy-data-augmentation) as a reference for implementing each augmentation. A detailed cutting out process is found at [this paper](https://arxiv.org/abs/1708.04552).
 
 
-To make sure that I can make additional data for less images, I plot histogram again. It shows that all each images exits over 700 at least.
+To make sure that I can make additional data for fewer images, I plot the histogram again. It shows that all each image exit over 700 at least.
 
 ![alt text][image4]
 
-Here is images after normalization and augumentation.
+Here are images after normalization and augmentation.
 ![alt text][image3]
 
 ### 3 Design, train and test a model
@@ -121,7 +121,7 @@ My final LeNet model consisted of the following layers:
 | Softmax				|												|
 
 To train the defined model, I used an `Adam optimizer` with `learning rate = 0.005`, `batch size = 256`, and `15 Epocs`.
-A bit tricky part is that I should pass different dropout rate for training from that for validating and testing. And label(class) must be made as one hot coded before I pass it to model.
+A bit tricky part is that I should pass a different dropout rate for training from that for validating and testing. And label(class) must be made as one hot coded before I pass it to the model.
 
 The final accuracy from model are following:
 
@@ -131,7 +131,7 @@ Validation Accuracy = 0.936
 Test Accuracy = 0.936
 ```
 
-Through training, I save previous validation accuracy at each epoch. If current epoch model make better accuracy than previous, that model was saved. I make assure that only best accuracy model was saved.
+Through training, I save previous validation accuracy at each epoch. If a current epoch model makes better accuracy than the previous, that model was saved. I make assure that only the best accuracy model was saved at every epoch.
 
 ### 4 Use the model to make predictions on new images
 
@@ -148,21 +148,21 @@ New image labels are following:
 - 25,Road work
 - 31,Wild animals crossing
 
-I then applied same normalizing pipeline to new images. In addition to normalization, I make all of them be the same shape size, `(32, 32, 3)` as that of training image.
+I then applied the same normalizing pipeline to new images. In addition to normalization, I make all of them be the same shape size, `(32, 32, 3)` as that of the training image.
 
 Here is the output:
 
 ![alt text][image6]
 
-Above image shows actual label id and prediction below the picture.
+The above image shows the actual label id and prediction below the picture.
 
 It shows that the model predicted 1 out of 6 signs correctly, it's 16.7% accurate on these new images.
 
 ### 5 Analyze the softmax probabilities of the new images
 
-To get softmax probabilities for each new images, I use `tf.nn.top_k`.
+To get softmax probabilities for each new image, I use `tf.nn.top_k`.
 
-Here is output for each images.
+Here is the output for each image.
 
 ![alt text][image7]
 
@@ -170,17 +170,17 @@ Here is output for each images.
 
 **The final exported HTML file can be found at [report.html](./report.html).**
 
-The accuracy on new test images is bad. There are some reasons. One possible reason is that I tested images that are less number in traing datasets. The model doesn't trained thosed images well because of its little number.
+The accuracy of the new test images is bad. There are some reasons. One possible reason is that I tested images that are less number in training datasets. The model didn't train those images well because of its little number.
 
 ## Discussion
 
 ### Problem during my implementation
 
-After I decided model architecture at first, I got 85% validation accuracy. I changed hypter parameters like learning rate to increase accuracy but it didn't well. At that time, it shows lows accuracy both for traing for validating so I need additional data in training set. I decided to do image augumentation. And then I got a bit better result from 85% to 90%. I might be wrong, but I kinda noticed that formatting datasets, including normalization and image augumentations, affects much more that changing model architecture.
+After I decided on model architecture at first, I got 85% validation accuracy. I changed hyperparameters like learning rate to increase accuracy but it didn't work well. At that time, it shows lows accuracy both for training for validating so I need additional data in the training set. I decided to do image augmentation. And then I got a bit better result from 85% to 90%. I might be wrong, but I kinda noticed that formatting datasets, including normalization and image augmentations, affects much more than changing a whole model architecture.
 
-I resove underfitting, and then overfitting came next. A traing accuracy at that time increased, whereas validation accuracy got stuck at 80% or something. I adjust model to add dropout layer to deal with that overfitting. With added dropout, model works well but not next to expected 93%. I decided to implement data augumentatoin. I first made mistake that I make fake data to all images but it didn't change result. The problem here is that there are small number of traing datasets for some images, but not for all images. I made 93.6 validation accuracy after implementing data augumentation and drop layer.
+I resolved underfitting problem, and then overfitting came next. A training accuracy at that time increased, whereas validation accuracy got stuck at 80% or something. I adjust the model to add one dropout layer to deal with that overfitting. With added dropout, the model works well but not next to the expected 93%. I decided to implement data augmentation. I first made the mistake that I made fake data to all images but it didn't change the result. The problem here is that there is a small number of training datasets for some images, but not for all images. I made 93.6 validation accuracy after implementing data augmentation and drop layer.
 
-I should have defined model and trained it first, and then I did some pre process step for datasets. I plaied aroud image augumentation process before training step, but the thing is how well my model classified datasets by seeing differences between training and valitating accuracy.
+I should have defined the model and trained it first, and then I did some preprocess step for datasets. I played around with the image augmentation process before training step, but the thing is how well my model classified datasets by seeing differences between training and validating accuracy.
 
 ### Improvements to pipeline
 
@@ -194,7 +194,7 @@ Another possible suggestion is to make all of each image in training datasets ex
 ### Future Feature
 
 I will try to test another model architecture apart from LeNet.
-I train the model on Udacity workspace, but in actual situation, it should be on some clud vendor or own gpu server. I try this progect out on [AWS](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/forum_archive/AWS+Instructions.pdf). Last challenge still remains, so I do `Step 4 (Optional): Visualize the Neural Network's State with Test Images` on project code.
+I train the model on Udacity workspace, but in the actual situation, it should be on some cloud vendor or own GPU server. I try this project notebook out on [AWS](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/forum_archive/AWS+Instructions.pdf). Last challenge remains, so I do `Step 4 (Optional): Visualize the Neural Network's State with Test Images` on project code.
 
 ---
 
